@@ -1,0 +1,12 @@
+.notificationContainer {
+  color: white;
+  opacity: .8;
+  border-radius: 4px;
+  width: 25%;
+  padding: 16px;
+  position: absolute;
+  right: 16px;
+  z-index: 999;
+  transition: top 0.5s ease;
+  cursor: pointer;
+}
