@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Api from '../../services/ApiService';
+import LoginBackgroundSlider from '../../components/LoginBackgroundSlider/LoginBackgroundSlider';
 
 class LoginPage extends Component {
 
@@ -47,7 +48,8 @@ class LoginPage extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Login page</h1>
+                <LoginBackgroundSlider />
+                {/* <h1>Login page</h1>
 
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <form onSubmit={this.onSubmit}>
@@ -72,13 +74,13 @@ class LoginPage extends Component {
                             />
                         </div>
 
-                        {/* <Link to="/product-list" className="btn btn-danger mr-10">
+                        <Link to="/product-list" className="btn btn-danger mr-10">
                         Trở Lại
-                    </Link> */}
+                    </Link>
                         <button type="submit" className="btn btn-primary">Login</button>
                     </form>
 
-                </div>
+                </div> */}
             </div>
         );
     }

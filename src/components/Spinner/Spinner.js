@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import styles from './spinner.sass'
-import spinner from './Facebook.svg';
-import './spinner.css';
+import spinner from './ccby.svg';
+import './Spinner.css';
 
 class Spinner extends Component {
 

@@ -1,0 +1,79 @@
+.loginSlideContainer {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  top: 0;
+  z-index: 900;
+  transition: left 0.5s ease;
+  background: rgb(35, 31, 163);
+
+}
+
+.textAccount {
+  color: white;
+  font-weight: 545;
+  font-size: 25px;
+  margin-bottom: 30px;
+}
+
+.containerRight {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.btn-loginslide {
+  border-radius: 20px;
+  color: black;
+  font-weight: 600;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.loginSlideContainerLeft {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  top: 0;
+  z-index: 800;
+  transition: left 0.5s ease;
+}
+
+.containerLeft {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.formLogin {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.button-facebook-google {
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inline {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './notification.css';
+import './Notification.css';
 import * as NotificationTypes from './NotificationTypes';
 
 const notificationOptions = {
