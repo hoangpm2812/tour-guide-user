@@ -1,11 +1,33 @@
 import axios from 'axios';
 import * as Config from './../constants/Config';
+import firebase from 'firebase';
 
 
 const create = () => {
+    const googleSignIn = (sucess, error) => {
+        let provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        provider.setCustomParameters({
+            'login_hint': 'user@example.com'
+        });
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            localStorage.setItem('user', JSON.stringify(result.user));
+            sucess(result);
+        }).catch(function (err) {
+            error(err);
+            global.root.showErrorNotification(err.message);
+        });
+    }
+
+    const facebookSignIn = (sucess, error) => {
+        
+    }
+
     const login = (params, success, error) => request('POST', 'oauth/token', params, success, error);
 
     return {
+        googleSignIn,
+        facebookSignIn,
         login
     }
 }
@@ -46,7 +68,7 @@ const request = (method = 'GET', endpoint, params, successCallback, errorCallbac
             console.log(err.message)
             global.root.showErrorNotification(err.message);
         }
-        
+
     });
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import spinner from './ccby.svg';
-import './Spinner.css';
+import './spinner.css';
 
 class Spinner extends Component {
 

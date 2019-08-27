@@ -32,6 +32,11 @@
   padding-right: 45px;
   padding-top: 10px;
   padding-bottom: 10px;
+  outline-style: none !important;
+}
+
+.btn-loginslide:hover {
+  background: orange;
 }
 
 .loginSlideContainerLeft {
@@ -76,4 +81,10 @@
   display: flex;
   text-align: center;
   justify-content: center;
+}
+
+.btn-login {
+  border-radius: 20px;
+  padding-left: 35px;
+  padding-right: 35px;
 }

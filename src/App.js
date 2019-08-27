@@ -6,6 +6,7 @@ import Spinner from './components/Spinner/Spinner';
 import routes from './routes/routes';
 import Notification from './components/Notification/Notification';
 import * as NotificationTypes from './components/Notification/NotificationTypes';
+import { database } from './constants/Firebase';
 
 
 class App extends Component {
@@ -17,8 +18,6 @@ class App extends Component {
 		}
 
 	}
-
-
 
 	render() {
 		console.log('render APP')

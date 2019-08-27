@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './LoginBackgroundSlider.css';
 import { withRouter } from 'react-router-dom';
 import Api from '../../services/ApiService';
-import firebase from 'firebase';
-import { database } from '../../constants/Firebase';
 
 const LoginBackgroundOption = {
   leftIndex: '0',
@@ -22,9 +20,7 @@ class LoginBackgroundSlider extends Component {
   }
 
   componentWillMount() {
-    if (localStorage.getItem('token') !== null) {
-      this.props.history.push('/');
-    }
+
   }
 
   onChange = (e) => {
@@ -54,67 +50,46 @@ class LoginBackgroundSlider extends Component {
   }
 
   googleSignInPopup = () => {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    provider.setCustomParameters({
-      'login_hint': 'user@example.com'
-    });
-    firebase.auth().signInWithPopup(provider).then(function (result) {
-      console.log('gooogleSignInPopup')
-      console.log(result)
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function (error) {
-      console.log(error)
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
+    Api.create().googleSignIn(res => {
+      console.log(this.props)
+      this.props.history.replace('/');
+    }, err => {
+      console.log(err)
+    })
   }
 
   facebookSignInPopup = () => {
-    firebase.auth().signOut().then(function () {
-      console.log('signed out')
-      // Sign-out successful.
-    }).catch(function (error) {
-      console.log(error)
-      // An error happened.
-    });
+    global.root.showErrorNotification('Not available');
   }
 
   render() {
     let styled = {
       left: this.state.left
     };
+    let isLeft = this.state.left === LoginBackgroundOption.leftIndex;
     return (
       <div>
 
         <div className="loginSlideContainer" style={styled}>
           <div className="containerRight">
             <div className="textAccount">
-              Bạn chưa có tài khoản?
+              {isLeft ? 'Bạn đã có tài khoản?' : 'Bạn chưa có tài khoản?'}
             </div>
             <button type="button" className="btn btn-loginslide" onClick={this.slideComponent}>
-              {this.state.left === LoginBackgroundOption.leftIndex ? 'ĐĂNG NHẬP' : 'ĐĂNG KÝ'}
+              {isLeft ? 'ĐĂNG NHẬP' : 'ĐĂNG KÝ'}
             </button>
           </div>
         </div>
 
         <div className="loginSlideContainerLeft"
           style={{
-            left: this.state.left === LoginBackgroundOption.leftIndex ?
+            left: isLeft ?
               LoginBackgroundOption.rightIndex : LoginBackgroundOption.leftIndex
           }}>
           <div className="containerLeft">
-            <h1>Login page</h1>
+            <h1>
+              {isLeft ? 'Tạo tài khoản' : 'Đăng nhập'}
+            </h1>
 
             <div className="inline">
               <div className="button-facebook-google" onClick={this.facebookSignInPopup}>
@@ -125,6 +100,9 @@ class LoginBackgroundSlider extends Component {
               </div>
             </div>
 
+            <div style={{marginBottom: '20px'}}>
+              Hoặc sử dụng email của bạn
+            </div>
 
             <div className="formLogin">
               <div className="form-group">
@@ -150,7 +128,9 @@ class LoginBackgroundSlider extends Component {
 
 
             </div>
-            <button type="button" className="btn btn-primary" onClick={this.onSubmit}>Login</button>
+            <button type="button" className="btn btn-primary btn-login" onClick={this.onSubmit}>
+              {isLeft ? 'Đăng ký' : 'Đăng nhập'}
+            </button>
 
           </div>
         </div>
@@ -164,16 +144,6 @@ class LoginBackgroundSlider extends Component {
       this.setState({ left: LoginBackgroundOption.rightIndex });
     } else {
       this.setState({ left: LoginBackgroundOption.leftIndex });
-    }
-
-    var user = firebase.auth().currentUser;
-    console.log('slide component');
-    console.log(user)
-
-    if (user) {
-      // User is signed in.
-    } else {
-      // No user is signed in.
     }
   }
 }

@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-var config = {
+const config = {
   apiKey: "AIzaSyBSzCHtATNwEFVlphrnpGIt5iJkFq5ABOg",
   authDomain: "travelingapp-4639b.firebaseapp.com",
   databaseURL: "https://travelingapp-4639b.firebaseio.com",
@@ -10,27 +10,19 @@ var config = {
 };
 
 export const firebaseApp = firebase.initializeApp(config);
-// firebase.initializeApp(config);
 
-// export default firebase;
 export const database = firebase.database();
 
-firebase.auth().onAuthStateChanged(function (user) {
-  console.log('user:');
-  console.log(user)
-  if (user) {
-    // User is signed in.
-    var displayName = user.displayName;
-    var email = user.email;
-    var emailVerified = user.emailVerified;
-    var photoURL = user.photoURL;
-    var isAnonymous = user.isAnonymous;
-    var uid = user.uid;
-    var providerData = user.providerData;
-    // ...
-  } else {
-    // User is signed out.
-    // ...
-  }
-});
+// firebase.auth().onAuthStateChanged(function (user) {
+//   console.log('user onAuthStateChanged:');
+//   console.log(user);
+
+//   if (user) {
+//     // User is signed in.
+//     localStorage.setItem('user', JSON.stringify(user));
+//   } else {
+//     // User is signed out.
+//     localStorage.removeItem('user');
+//   }
+// });
 
