@@ -15,7 +15,8 @@ class LoginBackgroundSlider extends Component {
     this.state = {
       left: LoginBackgroundOption.rightIndex,
       txtUsername: '',
-      txtPassword: ''
+      txtPassword: '',
+      txtConfirmPassword: ''
     }
   }
 
@@ -34,25 +35,41 @@ class LoginBackgroundSlider extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    var data = {
-      username: this.state.txtUsername,
-      password: this.state.txtPassword
-    }
-    Api.create().login(data, (res) => {
-      console.log(res);
-      if (res.data) {
-        localStorage.setItem('token', res.data);
-        this.props.history.push('/');
-      }
-    }, (err) => {
+    // var data = {
+    //   username: this.state.txtUsername,
+    //   password: this.state.txtPassword
+    // }
+    // Api.create().login(data, (res) => {
+    //   console.log(res);
+    //   if (res.data) {
+    //     localStorage.setItem('token', res.data);
+    //     this.props.history.push('/');
+    //   }
+    // }, (err) => {
 
-    })
+    // })
+    let isLeft = this.state.left === LoginBackgroundOption.leftIndex;
+    if (isLeft) {
+      if (this.state.txtPassword !== this.state.txtConfirmPassword) {
+        global.root.showErrorNotification('Password was not confirmed correctly');
+        return;
+      }
+      Api.create().createUserWithEmailPassword(this.state.txtUsername, this.state.txtPassword, result => {
+        this.setState({ left: LoginBackgroundOption.rightIndex });
+      }, error => {
+
+      })
+    } else {
+      Api.create().emailSignIn(this.state.txtUsername, this.state.txtPassword, result => {
+        this.props.history.push('/');
+      })
+    }
   }
 
   googleSignInPopup = () => {
     Api.create().googleSignIn(res => {
       console.log(this.props)
-      this.props.history.replace('/');
+      this.props.history.push('/');
     }, err => {
       console.log(err)
     })
@@ -100,7 +117,7 @@ class LoginBackgroundSlider extends Component {
               </div>
             </div>
 
-            <div style={{marginBottom: '20px'}}>
+            <div style={{ marginBottom: '20px' }}>
               Hoặc sử dụng email của bạn
             </div>
 
@@ -117,7 +134,7 @@ class LoginBackgroundSlider extends Component {
               </div>
               <div className="form-group">
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   name="txtPassword"
                   value={this.state.txtPassword}
@@ -125,7 +142,18 @@ class LoginBackgroundSlider extends Component {
                   placeholder="Mật khẩu"
                 />
               </div>
-
+              {isLeft ? (
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="txtConfirmPassword"
+                    value={this.state.txtConfirmPassword}
+                    onChange={this.onChange}
+                    placeholder="Xác nhận mật khẩu"
+                  />
+                </div>
+              ) : null}
 
             </div>
             <button type="button" className="btn btn-primary btn-login" onClick={this.onSubmit}>

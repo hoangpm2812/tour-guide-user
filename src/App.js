@@ -20,7 +20,6 @@ class App extends Component {
 	}
 
 	render() {
-		console.log('render APP')
 		return (
 			<Router>
 				<div>

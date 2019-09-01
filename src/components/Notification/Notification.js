@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import './notification.css';
 import * as NotificationTypes from './NotificationTypes';
 
-const notificationOptions = {
+const NotificationOptions = {
   successColor: '#90b900',
   errorColor: '#e85656',
   infoColor: '#2dacd1',
-  topDefault: 16
+  topDefault: 16,
+  topDisapear: -150
 }
 
 class Notification extends Component {
@@ -14,7 +15,7 @@ class Notification extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      top: -100,
+      top: NotificationOptions.topDisapear,
       content: '',
       backgroundColor: ''
     };
@@ -38,7 +39,7 @@ class Notification extends Component {
   showNotification = (content = '', type) => {
     if (this.timeout) {
       clearTimeout(this.timeout);
-      this.setState({top: -100}, () => {
+      this.setState({top: NotificationOptions.topDisapear}, () => {
         this.timeout = setTimeout(() => {
           this.onShowNotification(content, type);
         }, 500);
@@ -51,13 +52,13 @@ class Notification extends Component {
   onShowNotification = (content, type) => {
     var backgroundColor = this.getNotificationColor(type);
     this.setState({
-      top: notificationOptions.topDefault,
+      top: NotificationOptions.topDefault,
       content: content,
       backgroundColor: backgroundColor
     }, () => {
       this.timeout = setTimeout(() => {
         this.setState({
-          top: -100
+          top: NotificationOptions.topDisapear
         })
       }, 3000);
     })
@@ -67,20 +68,20 @@ class Notification extends Component {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
-    this.setState({top: -100});
+    this.setState({top: NotificationOptions.topDisapear});
   }
 
   getNotificationColor = (type) => {
     var backgroundColor = '';
     switch (type) {
       case NotificationTypes.SUCCESS: 
-        backgroundColor = notificationOptions.successColor;
+        backgroundColor = NotificationOptions.successColor;
         break;
       case NotificationTypes.ERROR:
-        backgroundColor = notificationOptions.errorColor;
+        backgroundColor = NotificationOptions.errorColor;
         break;
       default:
-        backgroundColor = notificationOptions.infoColor;
+        backgroundColor = NotificationOptions.infoColor;
     }
     return backgroundColor;
   }
